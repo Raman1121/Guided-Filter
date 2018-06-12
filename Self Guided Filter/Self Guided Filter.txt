@@ -1,0 +1,70 @@
+clc;
+clear all;
+close all;
+
+I=imread('mount.jpg');%we are converting it to double because later we are multiplying the x matrix to h which is double
+b=im2double(I);
+
+x=rgb2gray(b);
+%subplot(2,1,1);
+figure; imshow(x);
+% sigmas=50;
+% sigmar=0.5;
+
+
+p=size(x);
+row=p(1,1);
+column=p(1,2);
+a=zeros(row,1);
+b1=zeros(1,column);
+
+x(:,column+1)=0;
+x(row+1,:)=0;
+
+p1=size(x);
+row1=p1(1,1);
+column1=p1(1,2);
+
+y=zeros(row1+1,column1+1);
+p2=size(y);
+row2=p2(1,1);
+column2=p2(1,2);
+y(2:row2,2:column2)=x(:,:);
+pk=0;
+v=0;
+total=0;
+
+for i=1:row2-2 %we want to slide the window upto 2nd last column
+    for j=1:column2-2
+        patch(1:3,1:3)=y(i:i+2,j:j+2);
+        pk=sum(patch(:))/9;
+        for k=1:3
+            for l=1:3
+                v=v+((patch(k,l)-pk)^2);
+            end
+        end
+        v1=v/9;
+        v2=v;
+        for m=1:3
+            for n=1:3
+                total=total+(((patch(m,n))^2)-pk^2);
+            end
+        end
+        ak=(total/9)/v1;
+        bk=pk-(ak*pk);
+        for o=1:3
+            for p=1:3
+                q(o,p)=ak*patch(o,p)+bk;
+            end
+        end
+        q1=sum(q(:))/9;
+        
+       
+        z(i+1,j+1)=q1;
+       
+    end
+end   
+
+z=z(2:row2-1,2:column2-1);
+figure; 
+imshow(im2uint8(z));
