@@ -5,5 +5,5 @@ The algorithmic explanations have been taken from the paper 'Guided Filter Techn
 
 The repository contains the folder
 
-1. Self Guided Filter - This folder contains the code for the first variation of the Guided Filter i.e. the Self Guided Filter in which the Input Image and the Guidance Image are the same Images.
+1. Self Guided Filter - This folder contains the code for the first variation of the Guided Filter i.e. the filter in which the Input Image and the Guidance Image are the same Images.
 
